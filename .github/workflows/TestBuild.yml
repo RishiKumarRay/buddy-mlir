@@ -8,9 +8,15 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
-# ToDo : Cache llvm build to reduce execution time on each run of virtual instance.
     steps:
+# ToDo : Cache llvm build to reduce execution time on each run of virtual instance.
+    - uses: actions/cache@v2
+      with:
+       path: |
+        path/to/dependencies
+        some/other/dependencies
+       key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+  
     - uses: actions/checkout@v2
     - uses: seanmiddleditch/gha-setup-ninja@master
     - name: test build
